@@ -1,0 +1,59 @@
+
+Part 1: javax.xml.parsers.DocumentBuilderFactory#newInstance () : This link directes to a method named: 
+
+public static DocumentBuilderFactory newInstance(). This method obtains a new instance of a Document Builder Factory. This static method creates a new abstact factory instace. 
+
+Document Builder Factory: Defines a factory API that enables applications to obtain a parser that produces DOM object trees from XML documents. 
+This new instace uses the abstract method called newDocumentBuilder() to return a factory called DocumentBuilder. 
+
+Document Builder: Defines the API to obtain DOM Document instances from an XML document. 
+Using this class, an application programmer can obtain a Document from XML from a variety of input sources. 
+
+An instance of the DocumentBuilder class can be obtained from the DocumentBuilderFactory.newDocumentBuilder method obtained from newInstance method. Once an instance of DocumentBuilder class is obtained, XML can be parsed from a variety of input sources. These input sources are InputStreams, Files, URLs, and SAX InputSources. And this parsed inputs can be converted to documents.
+
+
+Overall: 
+
+DocumentBuilderFactory documentbuilderfactory = DocumentBuilderFactory.newInstance();  // creates a new instace of Document Builder Factory.
+
+DocumentBuilder factory = documentbuilderfactory.newDocumentBuilder();   /* Obtaines a DocumentBuilder instace from abstract method newDocumentBuilder of DocumentBuilderFactory class. */
+
+Document doc = factory.parse(sourceName)   //Parse the content of the given source as an XML document and return a new DOM Document object.
+
+Answer: DocumentBuilderFactory is an example of Abstract Factory design pattern because it returns a factory called Document Builder. This Document builder factory is used to create documents from various input sources.
+
+The Abstract Factory Pattern provides an interface for creating families of related or dependent objects without specifying their concrete classes.  
+
+Thus Abstract Factory: DoucumentBuilderFactory creates individual Factory: DocumentBuilder which creates Documents: family of related objects.
+
+
+
+PART 2: javax.xml.transform.TransformerFactory#newInstance() 
+
+TransformerFactory is similar to a DocumentBuilderFactory.
+ 
+From newInstace method a new instance of a TransformerFactory factory will be obtained. This static method creates a new factory instance. This instace uses the abstract method 'newTranformer' of TransformerFactory class to create a new Transformer objects. 
+
+An instance of Transformer class can be obtained with the TransformerFactory.newTransformer method. This instance may then be used to process XML from a variety of sources and write the transformation output to a variety of sinks.
+
+Thus similar to DocumentBuilderFactory, TransformerFactory creates a factory which is used to create a Transformer, which then transformes XML source files to a result.
+
+Thus TransformerFactory also follows a AbstractFactory pattern design.
+
+
+
+Part 3: javax.xml.xpath.XPathFactory#newInstance()
+
+XPathFactory is also a AbstractFactory Pattern design similar to the above two. It creates a factory which is used to create a family of related objects.
+
+From newInstace method a new instance of XPathFactory factory will be obtained. This instace can be used to create a XPath objects using 'newXPath' abstract method. XPath object can be used to compile and evaluate Xpath expressions in the context of specified input source and return the result a specified output type.
+
+
+Source: All the definitions related DocumentBuilderFactory, TransformerFactory and XPathFactory are taken from Oracle java docmentation. 
+
+
+
+
+
+
+
