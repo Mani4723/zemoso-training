@@ -15,12 +15,18 @@ javax.xml.bind.annotation.adapters.XmlAdapter#marshal() and #unmarshal()
 
 Answer: All the classes follows Adapter design pattern.
 
-Adapter Pattern: The Adapter pattern converts the interface of a class into another interface the client expects. It works as a bridge between two incompatible interfaces.
+Adapter Pattern: The Adapter pattern converts the interface of a class into another interface the client expects. 
+It works as a bridge between two incompatible interfaces.
 
-The main important parts of Adapter pattern are 1. Traget Interface (which the client uses/expects), 2. Adaptee (existing interface) and 
+The main important parts of Adapter pattern are 1. Traget Interface (which the client uses/expects), 
+2. Adaptee (existing interface) and 
 3. Adapter (adaptes the existing interface to target interface/Translates the requests from client to adaptee).
 
-In the first example : Target Interface: Some client class is using list interface for a group objects/primitive types, Adaptee: But we have an array intrerface to group some objects/primitive types which need adapting to target interface for client to use it. Adapter:So we use an adapter Arrays#asList() method of Array class wrapes the array object and presents it as list.
+In the first example : Target Interface: Some client class is using list interface for a group objects/primitive types, 
+Adaptee: But we have an array intrerface to group some objects/primitive types which need adapting to target interface 
+for client to use it. Adapter:So we use an adapter Arrays#asList() method of Array class wrapes the array object and 
+presents it as list.
 
-Similarly all the given classes uses a adapter design pattern, that wrappes the adaptee interface and presents it as target inteface. Whenever a client uses a Target interface, adapter transfers the requests to adaptee. 
+Similarly all the given classes uses a adapter design pattern, that wrappes the adaptee interface and presents it as 
+target inteface. Whenever a client uses a Target interface, adapter transfers the requests to adaptee. 
 
