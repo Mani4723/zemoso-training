@@ -1,0 +1,131 @@
+Part 2:
+
+Problem 1: Find out the number of documentaries with deleted scenes.
+
+SELECT COUNT(film_id)
+FROM film
+WHERE
+    special_features LIKE '%Deleted%' AND film_id IN (
+        SELECT film_id
+        FROM film_category
+        WHERE
+            category_id IN (
+            SELECT category_id
+	    FROM category
+            WHERE
+               name = 'Documentary'));
+
+
+
+Problem 2: Find out the number of sci-fi movies rented by the store managed by Jon Stephens.
+
+SELECT COUNT(rental_id)
+FROM rental
+WHERE
+    inventory_id IN (
+    SELECT inventory_id
+	FROM inventory
+	WHERE
+		film_id IN (
+		SELECT film_id
+		FROM film_category
+		WHERE
+			category_id IN (
+			SELECT category_id
+			FROM category
+			WHERE
+				name = 'Sci-Fi')))
+        AND staff_id IN (
+        SELECT staff_id
+        FROM staff
+        WHERE
+            first_name = 'Jon' AND last_name = 'Stephens');
+
+
+
+Problem 3: Find out the total sales from Animation movies.
+
+SELECT SUM(amount)
+FROM payment
+WHERE
+    rental_id IN (
+    SELECT rental_id
+	FROM rental
+	WHERE
+		inventory_id IN (
+        SELECT inventory_id
+		FROM inventory
+		WHERE
+			film_id IN (
+            SELECT film_id
+			FROM film_category
+			WHERE
+				category_id IN (
+                SELECT category_id
+				FROM category
+				WHERE 
+					name = 'Animation'))));
+
+
+
+Problem 4: Find out the top 3 rented category of movies  by “PATRICIA JOHNSON”.
+
+SELECT 
+    film_category.category_id,
+    category.name,
+    COUNT(film_category.category_id)
+FROM
+    film_category,
+    category
+WHERE
+    film_category.category_id = category.category_id
+        AND film_id IN (SELECT ALL
+            film_id
+        FROM
+            inventory
+        WHERE
+            inventory_id IN (SELECT 
+                    inventory_id
+                FROM
+                    rental
+                WHERE
+                    customer_id IN (SELECT 
+                            customer_id
+                        FROM
+                            customer
+                        WHERE
+                            first_name = 'PATRICIA'
+                                AND last_name = 'JOHNSON')))
+GROUP BY category_id
+ORDER BY COUNT(category_id) DESC
+LIMIT 3;
+
+
+
+Problem 5: Find out the number of R rated movies rented by “SUSAN WILSON”.
+
+SELECT 
+    rating, COUNT(rating)
+FROM
+    film
+WHERE
+    film_id IN (SELECT 
+            film_id
+        FROM
+            inventory
+        WHERE
+            inventory_id IN (SELECT 
+                    inventory_id
+                FROM
+                    rental
+                WHERE
+                    customer_id IN (SELECT 
+                            customer_id
+                        FROM
+                            customer
+                        WHERE
+                            first_name = 'SUSAN'
+                                AND last_name = 'WILSON')))
+        AND rating = 'R';
+
+
