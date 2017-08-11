@@ -1,0 +1,141 @@
+Problem 1: Find out the PG-13 rated comedy movies. DO NOT use the film_list table.
+
+SELECT title, rating
+FROM film
+WHERE
+    rating = 'PG-13'
+        AND film_id IN (SELECT film_id
+        FROM film_category
+        WHERE
+            category_id IN (SELECT 
+                    category_id
+                FROM
+                    category
+                WHERE
+                    name = 'comedy'));
+
+
+
+Problem 2: Find out the top 3 rented horror movies.
+
+SELECT film.title, COUNT(film.film_id)
+FROM film
+        JOIN
+    inventory inv ON inv.film_id = film.film_id
+        JOIN
+    rental ON rental.inventory_id = inv.inventory_id
+        JOIN
+    film_category fc ON fc.film_id = inv.film_id
+        JOIN
+    category ON category.category_id = fc.category_id
+WHERE
+    category.name = 'Horror'
+GROUP BY film.film_id
+ORDER BY COUNT(film_id) DESC
+LIMIT 3;
+
+
+
+
+Problem 3: Find out the list of customers from India who have rented sports movies.
+
+
+SELECT first_name, last_name, customer_id
+FROM customer
+WHERE
+    (customer_id IN (SELECT customer_id
+        FROM rental
+        WHERE
+            inventory_id IN (SELECT inventory_id
+                FROM inventory
+                WHERE
+                    film_id IN (SELECT film_id
+                        FROM film_category
+                        WHERE
+                            category_id = 15)))
+        AND address_id IN (SELECT address_id
+        FROM address
+        WHERE
+            city_id IN (SELECT city_id
+                FROM city
+                WHERE
+                    country_id IN (SELECT country_id
+                        FROM country
+                        WHERE
+                            country = 'India'))));
+
+
+
+
+Problem 4: Find out the list of customers from Canada who have rented “NICK WAHLBERG” movies.
+
+
+SELECT first_name, last_name, customer_id
+FROM customer
+WHERE
+    (customer_id IN (SELECT 
+            customer_id
+        FROM
+            rental
+        WHERE
+            inventory_id IN (SELECT 
+                    inventory_id
+                FROM
+                    inventory
+                WHERE
+                    film_id IN (SELECT 
+                            film_id
+                        FROM
+                            film_actor
+                        WHERE
+                            actor_id IN (SELECT 
+                                    actor_id
+                                FROM
+                                    actor
+                                WHERE
+                                    first_name = 'NICK'
+                                        AND last_name = 'WAHLBERG'))))
+        AND address_id IN (SELECT 
+            address_id
+        FROM
+            address
+        WHERE
+            city_id IN (SELECT 
+                    city_id
+                FROM
+                    city
+                WHERE
+                    country_id IN (SELECT 
+                            country_id
+                        FROM
+                            country
+                        WHERE
+                            country = 'Canada'))));   
+
+
+
+Problem 5: Find out the number of movies in which “SEAN WILLIAMS” acted.
+
+SELECT COUNT(film_id)
+FROM film_actor
+WHERE
+    actor_id IN (SELECT 
+            actor_id
+        FROM
+            actor
+        WHERE
+            first_name = 'SEAN'
+                AND last_name = 'WILLIAMS');
+
+
+
+
+
+
+
+
+ 
+
+ 
+
+
